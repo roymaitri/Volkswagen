@@ -25,7 +25,7 @@ public class stepDefinition {
 	public void user_is_on_dealer_portal() {
 		if (mDriver == null) {
 			mDriver = new ChromeDriver();
-			System.setProperty("webdriver.chrome.driver", "C:\\Users\\royma\\OneDrive\\Desktop\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", "chromedriver\\chromedriver.exe");
 			mDriver.get("https://covercheck.vwfsinsuranceportal.co.uk/");
 		}
 	}
