@@ -18,17 +18,21 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class stepDefinition {
 
-	WebDriver mDriver = new ChromeDriver();
-	private static final int mTimeout = 2; // 2seconds
+	static WebDriver mDriver = null;
+	private static final int mTimeout = 2; // 2 seconds
 
 	@Given("^user is on dealer portal$")
 	public void user_is_on_dealer_portal() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\royma\\OneDrive\\Desktop\\chromedriver.exe");
-		mDriver.get("https://covercheck.vwfsinsuranceportal.co.uk/");
+		if (mDriver == null) {
+			mDriver = new ChromeDriver();
+			System.setProperty("webdriver.chrome.driver", "C:\\Users\\royma\\OneDrive\\Desktop\\chromedriver.exe");
+			mDriver.get("https://covercheck.vwfsinsuranceportal.co.uk/");
+		}
 	}
 
 	@When("^user enters (.+) in ENTER REG$")
 	public void user_enters_in_enter_reg(String vehicleid) {
+		mDriver.findElement(By.id("vehicleReg")).clear();
 		mDriver.findElement(By.id("vehicleReg")).sendKeys(vehicleid);
 	}
 
@@ -56,9 +60,21 @@ public class stepDefinition {
 		Assert.assertTrue("Cover end date is less than cover start date", date2.after(date1));
 	}
 
-	@And("^close browser$")
-	public void close_browser() {
-		mDriver.quit();
+    @Then("^Sorry record not found message should be displayed$")
+    public void sorry_record_not_found_message_should_be_displayed() 
+    {
+		By result=By.xpath("//div[@class='result']");
+    	String actual= new WebDriverWait(mDriver, mTimeout).
+    			until(ExpectedConditions.visibilityOfElementLocated(result)).getText();
+		Assert.assertTrue("Vehicle Id exists.",actual.contains("record not found"));
 	}
-
+    @Then("^Please enter a valid car registration message should be displayed$")
+    public void please_enter_a_valid_car_registration_message_should_be_displayed()
+    {
+		By result=By.xpath("//div[@class='error-required']");
+    	String actual= new WebDriverWait(mDriver, mTimeout).
+    			until(ExpectedConditions.visibilityOfElementLocated(result)).getText();
+		Assert.assertTrue("Vehicle Id exists.",actual.contains("enter a valid car registration"));
+	}
+  
 }

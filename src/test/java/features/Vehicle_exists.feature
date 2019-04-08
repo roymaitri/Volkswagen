@@ -6,7 +6,6 @@ When user enters <vehicle id> in ENTER REG
 And clicks on Find vehicle
 Then user should see <vehicle id> for that provided registration number
 And cover end date should greater than cover start date 
-And close browser
 
 Examples:
 |vehicle id|
