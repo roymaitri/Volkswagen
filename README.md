@@ -1,6 +1,6 @@
 # Volkswagen
 
-Pre-requisites: Java, Eclipse for Java with Maven plugin
+Pre-requisites: Java, Eclipse for Java with Maven plug in
 
 Steps to execute:
 1. Install Natural plugin from Eclipse Market place
